@@ -1,0 +1,53 @@
+1>>
+Create Project Folder >>mkdir Project_Folder_name
+2>>
+>Create main folder in project folder >>cd Project_Folder_name/ mkdir main
+>Create CMakeLists.txt In Project Folder As Well As in main Folder >>touch CMakeLists.txt
+>In Project CMakeLists.txt file write Project_Folder_name
+
+cmake_minimum_required(VERSION 3.16)
+
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+project(Project_Folder_name)
+
+>> In main Folder Create Source_file >>touch src.c
+  >> In main Folder CMakeLists Type Source File Name
+
+idf_component_register(SRCS "src.c" INCLUDE_DIRS "")
+
+target_compile_options(${COMPONENT_LIB} PRIVATE "-Wno-format")
+
+3>>
+export/set the environmnet in current folder
+$. ~/esp/esp-idf/export.sh
+
+4>>
+do the menuconfig
+$idf.py menuconfig
+save it.
+
+5>>
+build the Code
+$idf.py build
+
+if port error comes change the port mod
+$sudo chmod 777 /dev/USBPORT
+
+6>>
+flash the Code
+$idf.py flash
+
+7>>
+monitor the Code
+$idf.py monitor
+
+can run one time build,flash,monitor
+$idf.py build && idf.py flash && idf.py monitor 
+
+
+Steps For TaskRunTimeStat
+after export.sh
+idf.py menuconfig
+>>component config>>FreeRtos>>Kernel>>configGEBERATE_RUN_TIME_STATS turn Enable by Spacebar
+>>save and quit
+then do buid..flash..monitor
